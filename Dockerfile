@@ -6,6 +6,7 @@ LABEL       maintainer="https://github.com/DanielNeto"
 ARG         OPENSSH_VERSION=${OPENSSH_VERSION:-7.7_p1-r4}
 ENV         OPENSSH_VERSION=${OPENSSH_VERSION}
 
+##Install ssh and iperf packets
 RUN         apk update && \
             apk upgrade && \
             apk add openssh=${OPENSSH_VERSION} && \
@@ -19,7 +20,7 @@ RUN         ssh-keygen -A
 ##Enable root login
 RUN         sed -i s/#PermitRootLogin.*/PermitRootLogin\ yes/ /etc/ssh/sshd_config
 
-##Setting root password as root
+##Set root password as root
 RUN         echo "root:root" | chpasswd
 
 EXPOSE      22
